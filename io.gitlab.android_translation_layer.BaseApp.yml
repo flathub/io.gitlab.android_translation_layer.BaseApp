@@ -254,7 +254,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: eb1efc584ac5e803cecb79a760b5d682f3aa21c5
+        commit: eb04efa9aedda24061247c357689f0099daf0982
 
   - name: android-translation-layer
     buildsystem: meson
@@ -265,7 +265,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: bcdf3eb3ce0ea260d4bd2dd616e692b06caa7934
+        commit: d79df985c7e637fbddd72d5ad64a5db862a1c382
 
   - name: cacerts
     buildsystem: simple
