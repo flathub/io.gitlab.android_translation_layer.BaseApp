@@ -1,0 +1,20 @@
+diff --git a/src/api-impl-jni/media/android_media_MediaCodec.c b/src/api-impl-jni/media/android_media_MediaCodec.c
+index 2754326a..74ab16f0 100644
+--- a/src/api-impl-jni/media/android_media_MediaCodec.c
++++ b/src/api-impl-jni/media/android_media_MediaCodec.c
+@@ -525,6 +525,7 @@ static gboolean render_frame(void *data)
+ #if GTK_CHECK_VERSION(4, 14, 0)
+ 	GdkTexture *texture = import_drm_frame_desc_as_texture(drm_frame_desc, drm_frame->width, drm_frame->height, drm_frame);
+ 	gtk_picture_set_paintable(d->gtk_picture, GDK_PAINTABLE(texture));
++	gtk_widget_queue_draw(GTK_WIDGET(d->gtk_picture));
+ 	g_object_unref(texture);
+ #else
+ 	struct wl_buffer *wl_buffer = import_drm_frame_desc(d->zwp_linux_dmabuf_v1,
+@@ -550,6 +551,7 @@ static gboolean render_texture(void *data) {
+ 	struct render_frame_data *d = (struct render_frame_data *)data;
+ 
+ 	gtk_picture_set_paintable(d->gtk_picture, GDK_PAINTABLE(d->texture));
++	gtk_widget_queue_draw(GTK_WIDGET(d->gtk_picture));
+ 	g_object_unref(d->texture);
+ 
+ 	free(d);
