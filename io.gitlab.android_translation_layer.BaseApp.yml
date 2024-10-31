@@ -265,7 +265,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: d79df985c7e637fbddd72d5ad64a5db862a1c382
+        commit: 8734a7ef2b7a9b79ad358e7e0169c1f407063849
       - type: patch
         path: patches/gtk_picture_redraw_workaround.patch
 
