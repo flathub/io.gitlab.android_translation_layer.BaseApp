@@ -72,7 +72,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/flatpak/libportal.git
-        tag: '0.7.1'
+        tag: '0.8.1'
 
   - name: openxr
     buildsystem: cmake-ninja
@@ -254,7 +254,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 57f9bbd9417b67a6d7bf70a7d7d457fc894250f5
+        commit: ce8fe1f089320a0d83c303661db4d2100119b053
 
   - name: android-translation-layer
     buildsystem: meson
@@ -265,7 +265,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 8734a7ef2b7a9b79ad358e7e0169c1f407063849
+        commit: fc0091a989bdb9f02854c5c0789d613f1b9096fb
       - type: patch
         path: patches/gtk_picture_redraw_workaround.patch
 
