@@ -206,18 +206,11 @@ modules:
       - --enable-scrypt
       - --disable-examples
       - --enable-crl
-      - --with-rsa
-      - --enable-certs
-      - --enable-session-certs
-      - --enable-encrypted-keys
-      - --enable-cert-gen
-      - --enable-cert-ext
-      - --enable-clr-monitor
       - --enable-jni
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
-        tag: v5.7.0-stable
+        tag: v5.7.4-stable
 
   - name: vixl
     buildsystem: meson
