@@ -231,7 +231,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: e502e9273c5fb600751f53a1d843ad38c910b2d8
+        commit: 60f1f64de330e734c2476c51ac6aec67396a4781
 
   - name: art_standalone
     no-autogen: true
@@ -247,7 +247,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: ce8fe1f089320a0d83c303661db4d2100119b053
+        commit: a1ea1c33d082e8ec70dcfae99c0a8d23246af700
 
   - name: android-translation-layer
     buildsystem: meson
@@ -258,7 +258,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: fc0091a989bdb9f02854c5c0789d613f1b9096fb
+        commit: ab114245bd93706d219ad38658c76abf9451791b
       - type: patch
         path: patches/gtk_picture_redraw_workaround.patch
 
