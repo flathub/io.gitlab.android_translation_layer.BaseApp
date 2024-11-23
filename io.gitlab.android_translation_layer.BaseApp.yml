@@ -20,6 +20,7 @@ cleanup:
   - /share/gir-1.0
   - /share/man
   - /share/vala
+  - /etc/ssl/certs/java/cacerts.bks
 modules:
   - name: gn
     cleanup:
@@ -247,7 +248,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: a1ea1c33d082e8ec70dcfae99c0a8d23246af700
+        commit: 4951d336de83ce9e65fecf0781ff3582206fa55e
 
   - name: android-translation-layer
     buildsystem: meson
@@ -258,12 +259,10 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: ab114245bd93706d219ad38658c76abf9451791b
-      - type: patch
-        path: patches/gtk_picture_redraw_workaround.patch
+        commit: 332d3d1137b6dbae579583b8fb8cb607795b925a
 
   - name: cacerts
     buildsystem: simple
     build-commands:
       - mkdir -p /app/share/java_home/lib/security
-      - ln -s /app/etc/ssl/certs/java/cacerts.bks /app/share/java_home/lib/security/cacerts.bks
+      - install -D /usr/lib/sdk/openjdk17/jvm/openjdk-17/lib/security/cacerts /app/share/java_home/lib/security/cacerts
