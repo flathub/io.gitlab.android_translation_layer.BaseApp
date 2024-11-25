@@ -259,7 +259,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 332d3d1137b6dbae579583b8fb8cb607795b925a
+        commit: d6d2c94abd8c10f56ca1d6e471e11f3b7120523e
 
   - name: cacerts
     buildsystem: simple
