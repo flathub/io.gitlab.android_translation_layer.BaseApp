@@ -14,6 +14,8 @@ cleanup:
   - /lib/cmake
   - /lib/girepository-1.0
   - /lib/java/core-all_classes.jar
+  - /lib/java/core-junit_classes.jar
+  - /lib/java/junit-runner_classes.jar
   - /lib/java/dx.jar
   - /lib/pkgconfig
   - /share/doc
@@ -248,7 +250,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 4951d336de83ce9e65fecf0781ff3582206fa55e
+        commit: c4fba44a45e319b57801d81ef946ee953ff70b58
 
   - name: android-translation-layer
     buildsystem: meson
@@ -259,7 +261,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: d6d2c94abd8c10f56ca1d6e471e11f3b7120523e
+        commit: 17713781d09d2c69fa6d956358a59b049ffbe191
 
   - name: cacerts
     buildsystem: simple
