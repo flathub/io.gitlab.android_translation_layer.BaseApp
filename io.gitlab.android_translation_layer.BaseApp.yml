@@ -4,6 +4,16 @@ runtime-version: '47'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
+# default command and finish-args only for using as commandline application. They are ignored when used as base app
+command: android-translation-layer
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --socket=pulseaudio
+  - --filesystem=home
 cleanup:
   - /include
   - /bin/dx
@@ -121,9 +131,11 @@ modules:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
         commit: c16feb72e52980018c01292b7f2e5f620e0f95e1
+      - type: patch
+        path: patches/android_translation_layer_appid.patch
 
   - name: cacerts
     buildsystem: simple
     build-commands:
       - mkdir -p /app/share/java_home/lib/security
-      - install -D /usr/lib/sdk/openjdk17/jvm/openjdk-17/lib/security/cacerts /app/share/java_home/lib/security/cacerts
+      - install -D /usr/lib/sdk/openjdk17/jvm/openjdk-17/lib/security/cacerts /app/share/ssl/certs/java/cacerts
