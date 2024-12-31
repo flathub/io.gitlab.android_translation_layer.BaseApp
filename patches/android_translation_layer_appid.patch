@@ -1,0 +1,22 @@
+diff --git a/src/main-executable/main.c b/src/main-executable/main.c
+index 691a72b9..59f9d040 100644
+--- a/src/main-executable/main.c
++++ b/src/main-executable/main.c
+@@ -617,7 +617,7 @@ static void open(GtkApplication *app, GFile **files, gint nfiles, const gchar *h
+ 		if (supported_mime_types)
+ 			g_string_append_printf(desktop_entry, "MimeType=%s\n", supported_mime_types);
+ 		struct dynamic_launcher_callback_data *cb_data = g_new(struct dynamic_launcher_callback_data, 1);
+-		cb_data->desktop_file_id = g_strdup_printf("%s.desktop", package_name);
++		cb_data->desktop_file_id = g_strdup_printf("io.gitlab.android_translation_layer.BaseApp.%s.desktop", package_name);
+ 		cb_data->desktop_entry = g_string_free(desktop_entry, FALSE);
+ 		printf("installing %s\n\n%s\n", cb_data->desktop_file_id, cb_data->desktop_entry);
+ 		xdp_portal_dynamic_launcher_prepare_install(portal, NULL, app_label, icon_serialized, XDP_LAUNCHER_APPLICATION, NULL, TRUE, TRUE, NULL, dynamic_launcher_ready_callback, cb_data);
+@@ -743,7 +743,7 @@ int main(int argc, char **argv)
+ 	callback_data->extra_jvm_options = NULL;
+ 	callback_data->extra_string_keys = NULL;
+ 
+-	app = gtk_application_new("com.example.demo_application", G_APPLICATION_NON_UNIQUE | G_APPLICATION_HANDLES_OPEN | G_APPLICATION_CAN_OVERRIDE_APP_ID);
++	app = gtk_application_new("io.gitlab.android_translation_layer.BaseApp", G_APPLICATION_NON_UNIQUE | G_APPLICATION_HANDLES_OPEN | G_APPLICATION_CAN_OVERRIDE_APP_ID);
+ 
+ 	// cmdline related setup
+ 	init_cmd_parameters(G_APPLICATION(app), callback_data);
