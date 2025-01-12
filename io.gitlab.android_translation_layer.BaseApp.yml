@@ -119,7 +119,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 5bda8706fa7f7e5e0fec2651bb85204320482a59
+        commit: 700600524ecce56cd7254c7acb9a01f598fcf9f2
 
   - name: android-translation-layer
     buildsystem: meson
@@ -130,7 +130,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: c16feb72e52980018c01292b7f2e5f620e0f95e1
+        commit: 62c964e8bd493ab14a93bc93f3a6f0470104c8ed
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
