@@ -139,3 +139,14 @@ modules:
     build-commands:
       - mkdir -p /app/share/java_home/lib/security
       - install -D /usr/lib/sdk/openjdk17/jvm/openjdk-17/lib/security/cacerts /app/share/ssl/certs/java/cacerts
+
+  - name: libopensles-standalone
+    buildsystem: meson
+    build-options:
+      append-path: /usr/lib/sdk/openjdk17/bin
+      env:
+        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
+    sources:
+      - type: git
+        url: https://gitlab.com/android_translation_layer/libopensles-standalone
+        commit: 605a83f47263a022427afb6e95801bd39b459b78
