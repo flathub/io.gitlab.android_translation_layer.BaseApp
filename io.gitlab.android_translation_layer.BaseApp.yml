@@ -82,7 +82,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
-        tag: v5.7.4-stable
+        tag: v5.7.6-stable
 
   - name: vixl
     buildsystem: meson
