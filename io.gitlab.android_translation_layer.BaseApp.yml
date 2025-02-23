@@ -103,7 +103,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: 38cbae66d5c82a26e6b81c4c17733f17fada4f85
+        commit: 33be9a83ce3af15ffb585cc3fb041743e2b410d0
 
   - name: art_standalone
     no-autogen: true
@@ -119,7 +119,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: aa709f68d03e83d35c5e8a58e77760e5be9185bc
+        commit: 6573b07f52981016c22943d4a77764573422d0cc
 
   - name: android-translation-layer
     buildsystem: meson
@@ -130,7 +130,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 2077dc9406054d643d3fc38888c0f560d23780a8
+        commit: f20bb6cb1c539b5c64af408107a96bf83fb2e104
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
