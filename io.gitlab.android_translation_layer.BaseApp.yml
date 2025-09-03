@@ -53,14 +53,14 @@ modules:
     sources:
       - type: git
         url: https://github.com/flatpak/libportal.git
-        tag: '0.8.1'
+        tag: '0.9.1'
 
   - name: openxr
     buildsystem: cmake-ninja
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: 'release-1.1.36'
+        tag: 'release-1.1.51'
 
   - name: wolfssl
     buildsystem: autotools
@@ -82,7 +82,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
-        tag: v5.7.6-stable
+        tag: v5.8.2-stable
 
   - name: vixl
     buildsystem: meson
@@ -93,8 +93,8 @@ modules:
       - aarch64
     sources:
       - type: archive
-        url: https://github.com/Linaro/vixl/archive/refs/tags/7.0.0.tar.gz
-        sha256: 2abe97bfec41995e6839051951beac9fc57ef6f1a2ae10818bf2842cdc3b1de1
+        url: https://github.com/Linaro/vixl/archive/refs/tags/8.0.0.tar.gz
+        sha256: 6aebbebcd9b66686ea246b450af529e1fc50fe25209522cc9ab42beae2377d38
       - type: patch
         path: patches/vixl_meson_support.patch
 
@@ -103,11 +103,14 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: 8467b5f04cb7c757f10b9b25eb539bc4fa8d4720
+        commit: c545de9fff3f9c2921d6f4179bc4c5b46bad6d02
 
   - name: art_standalone
     no-autogen: true
     build-options:
+      make-args:
+        - ____PREFIX=/app
+        - ____LIBDIR=lib
       make-install-args:
         - ____PREFIX=/app
         - ____LIBDIR=lib
@@ -119,7 +122,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 29e39149f2eaeedfdc9d3a645159de1e22f0994b
+        commit: 10d60509c9073791f9eca1d2b8443d40a40edc05
 
   - name: android-translation-layer
     buildsystem: meson
@@ -130,7 +133,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 398202a4f939fe4e286c2fabe7c3619686efc1f1
+        commit: cf93a172b9238e6612b778c7ab76013acebf0ef8
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
