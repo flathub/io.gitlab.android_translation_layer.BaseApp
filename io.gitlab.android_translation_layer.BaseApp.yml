@@ -79,6 +79,7 @@ modules:
       - --disable-examples
       - --enable-crl
       - --enable-jni
+      - --enable-sessioncerts
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
