@@ -60,7 +60,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: 'release-1.1.51'
+        tag: 'release-1.1.52'
 
   - name: wolfssl
     buildsystem: autotools
@@ -103,7 +103,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: c545de9fff3f9c2921d6f4179bc4c5b46bad6d02
+        commit: 0d41c7f52a8c09d672dddf1a7bf5d8419492ecb3
 
   - name: art_standalone
     no-autogen: true
@@ -122,7 +122,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 10d60509c9073791f9eca1d2b8443d40a40edc05
+        commit: 52e4bcda9c62bcc1654b554ace5869c58e6d3760
 
   - name: android-translation-layer
     buildsystem: meson
@@ -133,7 +133,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: cf93a172b9238e6612b778c7ab76013acebf0ef8
+        commit: 2c64b6b345afe188d8045f809dc38400c5777c74
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
@@ -152,4 +152,4 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/libopensles-standalone
-        commit: 605a83f47263a022427afb6e95801bd39b459b78
+        commit: bdb857a4baadbc8c036db85a5da26c5269a751c5
