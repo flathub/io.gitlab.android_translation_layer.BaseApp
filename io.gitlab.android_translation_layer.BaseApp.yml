@@ -1,6 +1,6 @@
 id: io.gitlab.android_translation_layer.BaseApp
 runtime: org.gnome.Platform
-runtime-version: '48'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
