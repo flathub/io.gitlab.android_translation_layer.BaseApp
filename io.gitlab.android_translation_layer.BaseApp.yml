@@ -154,3 +154,34 @@ modules:
       - type: git
         url: https://gitlab.com/android_translation_layer/libopensles-standalone
         commit: bdb857a4baadbc8c036db85a5da26c5269a751c5
+
+  - name: run-dex2oat
+    buildsystem: simple
+    build-options:
+      append-ld-library-path: /app/lib/art:/app/lib
+      arch:
+        x86_64:
+          env:
+            arch: x86_64
+        aarch64:
+          env:
+            arch: arm64
+    build-commands:
+      - mkdir -p /app/lib/java/dex/art/oat/$arch
+      - dex2oat -j1 --image=/app/lib/java/dex/art/oat/$arch/boot.art --dex-file=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-location=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-file=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-location=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-file=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-location=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-file=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-location=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-file=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-location=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-file=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-location=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-file=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-location=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-file=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-location=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-file=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-location=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-file=/app/lib/java/dex/art/wolfssljni-hostdex.jar --dex-location=/app/lib/java/dex/art/wolfssljni-hostdex.jar --oat-file=/app/lib/java/dex/art/oat/$arch/boot.oat --base=0x60cf8000 --host
+      # mark it as executable, so that flatpak builder extracts debug info automatically
+      - chmod +x /app/lib/java/dex/art/oat/$arch/*.oat
+      - mkdir -p /app/lib/java/dex/android_translation_layer/oat/$arch
+      - dex2oat --dex-file=/app/lib/java/dex/android_translation_layer/api-impl.jar --oat-file=/app/lib/java/dex/android_translation_layer/oat/$arch/api-impl.odex --host
+      # mark it as executable, so that flatpak builder extracts debug info automatically
+      - chmod +x /app/lib/java/dex/android_translation_layer/oat/$arch/*.odex
+
+  - name: strip-jars
+    buildsystem: simple
+    build-commands:
+      - for f in /app/lib/java/dex/art/*.jar /app/lib/java/dex/android_translation_layer/*.jar; do
+          echo stripping $f;
+          mv $f tmp.jar;
+          zip -d tmp.jar "classes*.dex";
+          mv tmp.jar $f;
+        done
