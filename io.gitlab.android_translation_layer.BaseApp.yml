@@ -104,7 +104,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: 0d41c7f52a8c09d672dddf1a7bf5d8419492ecb3
+        commit: 028fb270a852f4791b522389d8899377bb824dcf
 
   - name: art_standalone
     no-autogen: true
@@ -123,7 +123,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 52e4bcda9c62bcc1654b554ace5869c58e6d3760
+        commit: e78bf68917bcaaf58fef3960cd88793b3b7f39cc
 
   - name: android-translation-layer
     buildsystem: meson
@@ -134,7 +134,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 2c64b6b345afe188d8045f809dc38400c5777c74
+        commit: 162ce00ba431280ae6b11d647f0a9da7dff7bb33
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
@@ -154,3 +154,34 @@ modules:
       - type: git
         url: https://gitlab.com/android_translation_layer/libopensles-standalone
         commit: bdb857a4baadbc8c036db85a5da26c5269a751c5
+
+  - name: run-dex2oat
+    buildsystem: simple
+    build-options:
+      append-ld-library-path: /app/lib/art:/app/lib
+      arch:
+        x86_64:
+          env:
+            arch: x86_64
+        aarch64:
+          env:
+            arch: arm64
+    build-commands:
+      - mkdir -p /app/lib/java/dex/art/oat/$arch
+      - dex2oat --image=/app/lib/java/dex/art/oat/$arch/boot.art --dex-file=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-location=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-file=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-location=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-file=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-location=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-file=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-location=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-file=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-location=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-file=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-location=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-file=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-location=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-file=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-location=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-file=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-location=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-file=/app/lib/java/dex/art/wolfssljni-hostdex.jar --dex-location=/app/lib/java/dex/art/wolfssljni-hostdex.jar --oat-file=/app/lib/java/dex/art/oat/$arch/boot.oat --base=0x60cf8000 --host
+      # mark it as executable, so that flatpak builder extracts debug info automatically
+      - chmod +x /app/lib/java/dex/art/oat/$arch/*.oat
+      - mkdir -p /app/lib/java/dex/android_translation_layer/oat/$arch
+      - dex2oat --dex-file=/app/lib/java/dex/android_translation_layer/api-impl.jar --oat-file=/app/lib/java/dex/android_translation_layer/oat/$arch/api-impl.odex --host
+      # mark it as executable, so that flatpak builder extracts debug info automatically
+      - chmod +x /app/lib/java/dex/android_translation_layer/oat/$arch/*.odex
+
+  - name: strip-jars
+    buildsystem: simple
+    build-commands:
+      - for f in /app/lib/java/dex/art/*.jar /app/lib/java/dex/android_translation_layer/*.jar; do
+          echo stripping $f;
+          mv $f tmp.jar;
+          zip -d tmp.jar "classes*.dex";
+          mv tmp.jar $f;
+        done
