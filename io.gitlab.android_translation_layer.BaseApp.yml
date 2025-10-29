@@ -60,7 +60,9 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: 'release-1.1.52'
+        tag: 'release-1.1.53'
+    config-opts:
+      - -DCMAKE_INSTALL_LIBDIR=lib
 
   - name: wolfssl
     buildsystem: autotools
