@@ -107,6 +107,7 @@ modules:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
         commit: 028fb270a852f4791b522389d8899377bb824dcf
+        disable-submodules: true
 
   - name: art_standalone
     no-autogen: true
