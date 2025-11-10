@@ -19,8 +19,8 @@ cleanup:
   - /bin/dx
   - '*.a'
   - '*.la'
-  - '/lib/libopenxr_loader.so*'
-  - '/lib/libportal-*'
+  - /lib/libopenxr_loader.so*
+  - /lib/libportal-*
   - /lib/cmake
   - /lib/girepository-1.0
   - /lib/java/core-all_classes.jar
@@ -38,7 +38,7 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://archive.hadrons.org/software/libmd/libmd-1.1.0.tar.xz
+        url: https://libbsd.freedesktop.org/releases/libmd-1.1.0.tar.xz
         sha256: 1bd6aa42275313af3141c7cf2e5b964e8b1fd488025caf2f971f43b00776b332
         x-checker-data:
           type: anitya
@@ -74,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: 'release-1.1.53'
+        tag: release-1.1.53
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -185,20 +185,30 @@ modules:
             arch: arm64
     build-commands:
       - mkdir -p /app/lib/java/dex/art/oat/$arch
-      - dex2oat -j1 --image=/app/lib/java/dex/art/oat/$arch/boot.art --dex-file=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-location=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-file=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-location=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-file=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-location=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-file=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-location=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-file=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-location=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-file=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-location=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-file=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-location=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-file=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-location=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-file=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-location=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-file=/app/lib/java/dex/art/wolfssljni-hostdex.jar --dex-location=/app/lib/java/dex/art/wolfssljni-hostdex.jar --oat-file=/app/lib/java/dex/art/oat/$arch/boot.oat --base=0x60cf8000 --host
+      - dex2oat -j1 --image=/app/lib/java/dex/art/oat/$arch/boot.art --dex-file=/app/lib/java/dex/art/core-oj-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/core-oj-hostdex.jar --dex-file=/app/lib/java/dex/art/apachehttp-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/apachehttp-hostdex.jar --dex-file=/app/lib/java/dex/art/apache-xml-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/apache-xml-hostdex.jar --dex-file=/app/lib/java/dex/art/bouncycastle-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/bouncycastle-hostdex.jar --dex-file=/app/lib/java/dex/art/core-junit-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/core-junit-hostdex.jar --dex-file=/app/lib/java/dex/art/core-libart-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/core-libart-hostdex.jar --dex-file=/app/lib/java/dex/art/hamcrest-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/hamcrest-hostdex.jar --dex-file=/app/lib/java/dex/art/junit-runner-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/junit-runner-hostdex.jar --dex-file=/app/lib/java/dex/art/okhttp-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/okhttp-hostdex.jar --dex-file=/app/lib/java/dex/art/wolfssljni-hostdex.jar
+        --dex-location=/app/lib/java/dex/art/wolfssljni-hostdex.jar --oat-file=/app/lib/java/dex/art/oat/$arch/boot.oat
+        --base=0x60cf8000 --host
       # mark it as executable, so that flatpak builder extracts debug info automatically
       - chmod +x /app/lib/java/dex/art/oat/$arch/*.oat
       - mkdir -p /app/lib/java/dex/android_translation_layer/oat/$arch
-      - dex2oat --dex-file=/app/lib/java/dex/android_translation_layer/api-impl.jar --oat-file=/app/lib/java/dex/android_translation_layer/oat/$arch/api-impl.odex --host
+      - dex2oat --dex-file=/app/lib/java/dex/android_translation_layer/api-impl.jar
+        --oat-file=/app/lib/java/dex/android_translation_layer/oat/$arch/api-impl.odex
+        --host
       # mark it as executable, so that flatpak builder extracts debug info automatically
       - chmod +x /app/lib/java/dex/android_translation_layer/oat/$arch/*.odex
 
   - name: strip-jars
     buildsystem: simple
     build-commands:
-      - for f in /app/lib/java/dex/art/*.jar /app/lib/java/dex/android_translation_layer/*.jar; do
-          echo stripping $f;
-          mv $f tmp.jar;
-          zip -d tmp.jar "classes*.dex";
-          mv tmp.jar $f;
-        done
+      - for f in /app/lib/java/dex/art/*.jar /app/lib/java/dex/android_translation_layer/*.jar;
+        do echo stripping $f; mv $f tmp.jar; zip -d tmp.jar "classes*.dex"; mv tmp.jar
+        $f; done
