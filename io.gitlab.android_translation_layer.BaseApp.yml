@@ -74,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: release-1.1.53
+        tag: release-1.1.54
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -99,7 +99,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
-        tag: v5.8.2-stable
+        tag: v5.8.4-stable
 
   - name: vixl
     buildsystem: meson
@@ -120,7 +120,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: 028fb270a852f4791b522389d8899377bb824dcf
+        commit: 5c31d4366fbb0af70690e72e5a861e7b44ffb1ef
         disable-submodules: true
 
   - name: art_standalone
@@ -151,7 +151,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 5713c829775cbb254d81769d5ec942dff6f3a1f2
+        commit: c69c046be47e7d195b0c96b5ecd0f20fbf697c65
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
