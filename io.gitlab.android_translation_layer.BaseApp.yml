@@ -151,7 +151,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: a943171c0b09d7e24c1f6dbf8848e39d8866c5f1
+        commit: 6735b824c2e80889d5f81536338246bf0cebd2c4
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
