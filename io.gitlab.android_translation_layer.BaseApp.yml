@@ -1,6 +1,6 @@
 id: io.gitlab.android_translation_layer.BaseApp
 runtime: org.gnome.Platform
-runtime-version: '49'
+runtime-version: '50'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
@@ -74,8 +74,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: release-1.1.57
-        commit: 5d33a1f05d8e6a9a34d49c35048a9fb421ca74fb
+        tag: release-1.1.60
+        commit: 64f2b37c8c6da3d83c9b4d11865ba1fb752cb8ec
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -100,8 +100,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/wolfSSL/wolfssl.git
-        tag: v5.8.4-stable
-        commit: 59f4fa568615396fbf381b073b220d1e8d61e4c2
+        tag: v5.9.2-stable
+        commit: ac01707f552c611fbd135cc723b2682b3e7f80f2
 
   - name: vixl
     buildsystem: meson
@@ -142,7 +142,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: e78bf68917bcaaf58fef3960cd88793b3b7f39cc
+        commit: 5d02ce0f3955821501e4a26373030d5f856e9f02
 
   - name: android-translation-layer
     buildsystem: meson
@@ -153,7 +153,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: d793a072196e8f344f70972e9238b338a025f03b
+        commit: 9e8f53feec973df35d66a38073d53ab9bfa59c5c
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
