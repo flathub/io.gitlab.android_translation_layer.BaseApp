@@ -74,8 +74,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: release-1.1.60
-        commit: 64f2b37c8c6da3d83c9b4d11865ba1fb752cb8ec
+        tag: release-1.1.62
+        commit: 57af7fc61f9f2d492580cb28aab6d0ea59d8d417
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -122,7 +122,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/bionic_translation.git
-        commit: ee37eb21c91409fe0eed833d0a5a0aa6b931bb7b
+        commit: 4bf89cc9cca15adfd0b684fc6eec712311515f6d
         disable-submodules: true
 
   - name: art_standalone
@@ -142,7 +142,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 5d02ce0f3955821501e4a26373030d5f856e9f02
+        commit: 66a5d9079b159e9c5819bfeef4a6fff6a5f32719
 
   - name: android-translation-layer
     buildsystem: meson
@@ -153,7 +153,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 9e8f53feec973df35d66a38073d53ab9bfa59c5c
+        commit: 923b6df1c56a9100a8c1bc4262ca963af37b69bf
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
