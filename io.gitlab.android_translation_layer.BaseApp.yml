@@ -20,7 +20,6 @@ cleanup:
   - '*.a'
   - '*.la'
   - /lib/libopenxr_loader.so*
-  - /lib/libportal-*
   - /lib/cmake
   - /lib/girepository-1.0
   - /lib/java/core-all_classes.jar
@@ -56,18 +55,6 @@ modules:
           project-id: 1567
           stable-only: true
           url-template: https://libbsd.freedesktop.org/releases/libbsd-$version.tar.xz
-
-  - name: libportal
-    buildsystem: meson
-    sources:
-      - type: archive
-        url: https://github.com/flatpak/libportal/archive/0.11.0.tar.gz
-        sha256: 71482afa68b3373268e7df7feaf96ce99eb1a6701f60ff43a0d1b2594605eae8
-        x-checker-data:
-          type: anitya
-          project-id: 230124
-          stable-only: true
-          url-template: https://github.com/flatpak/libportal/archive/$version.tar.gz
 
   - name: openxr
     buildsystem: cmake-ninja
