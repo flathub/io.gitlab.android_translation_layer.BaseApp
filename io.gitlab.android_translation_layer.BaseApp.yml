@@ -4,6 +4,10 @@ runtime-version: '51'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.openjdk17
+build-options:
+  append-path: /usr/lib/sdk/openjdk17/bin
+  env:
+    JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
 # default command and finish-args only for using as commandline application. They are ignored when used as base app
 command: android-translation-layer
 finish-args:
@@ -27,6 +31,7 @@ cleanup:
   - /lib/java/junit-runner_classes.jar
   - /lib/java/dx.jar
   - /lib/pkgconfig
+  - /share/java
   - /share/doc
   - /share/gir-1.0
   - /share/man
@@ -61,8 +66,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/KhronosGroup/OpenXR-SDK.git
-        tag: release-1.1.63
-        commit: f2448a8797c85814aa892efc1ab8707900fbcc78
+        tag: release-1.1.65
+        commit: 24a1f2b92d212501a2b1b8d30ffd53abf55fcfa8
     config-opts:
       - -DCMAKE_INSTALL_LIBDIR=lib
 
@@ -122,25 +127,69 @@ modules:
         - ____PREFIX=/app
         - ____LIBDIR=lib
         - ____INSTALL_ETC=/app/etc
-      append-path: /usr/lib/sdk/openjdk17/bin
       env:
-        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
         LIBRARY_PATH: /app/lib
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/art_standalone.git
-        commit: 66a5d9079b159e9c5819bfeef4a6fff6a5f32719
+        commit: 7ead96be8423b3789457b920336149f3f35a61d0
+
+  # Build-time-only jar dependency for ATL jni_upcall_gen tool
+  - name: asm
+    buildsystem: simple
+    build-commands:
+      - javac --release 11 -d classes $(find src -name '*.java')
+      - jar cf asm.jar -C classes .
+      - install -Dm644 asm.jar /app/share/java/asm.jar
+    sources:
+      - type: archive
+        url: https://repo1.maven.org/maven2/org/ow2/asm/asm/9.11.1/asm-9.11.1-sources.jar
+        sha256: 3cfc56ad047260d8ccff50cd55af8922a9c9e2b0439c6eba801dbfaf0870a3ae
+        archive-type: zip
+        strip-components: 0
+        dest: src
+
+  # Build-time-only jar dependency for ATL jni_upcall_gen tool
+  - name: asm-tree
+    buildsystem: simple
+    build-commands:
+      - javac --release 11 -cp /app/share/java/asm.jar -d classes $(find src -name '*.java')
+      - jar cf asm-tree.jar -C classes .
+      - install -Dm644 asm-tree.jar /app/share/java/asm-tree.jar
+    sources:
+      - type: archive
+        url: https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/9.11.1/asm-tree-9.11.1-sources.jar
+        sha256: 203604136ea5f116a261aa10a415d25a8e74897749c128e532853ec4a748c572
+        archive-type: zip
+        strip-components: 0
+        dest: src
+
+  # Build-time-only jar dependency for ATL jni_upcall_gen tool
+  - name: java-getopt
+    buildsystem: simple
+    build-commands:
+      - javac --release 11 -d classes src/gnu/getopt/Getopt.java src/gnu/getopt/LongOpt.java
+      - cp src/gnu/getopt/MessagesBundle*.properties classes/gnu/getopt/
+      - jar cf java-getopt.jar -C classes .
+      - install -Dm644 java-getopt.jar /app/share/java/java-getopt.jar
+    sources:
+      - type: archive
+        url: https://repo1.maven.org/maven2/gnu/getopt/java-getopt/1.0.13/java-getopt-1.0.13-sources.jar
+        sha256: 0728c551077cbb0c4e721b95915c732642d70eef24b29ac7de549983e4f1818b
+        archive-type: zip
+        strip-components: 0
+        dest: src
 
   - name: android-translation-layer
     buildsystem: meson
-    build-options:
-      append-path: /usr/lib/sdk/openjdk17/bin
-      env:
-        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
+    config-opts:
+      - -Dasm_jar_path=/app/share/java/asm.jar
+      - -Dasm_tree_jar_path=/app/share/java/asm-tree.jar
+      - -Dgetopt_jar_path=/app/share/java/java-getopt.jar
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/android_translation_layer.git
-        commit: 8c1aee201bea1df6d7aebfa840b71bc3b55cb194
+        commit: bbb4d469405cdaea585475b17daef13202bc7e23
       - type: patch
         path: patches/android_translation_layer_appid.patch
 
@@ -152,14 +201,10 @@ modules:
 
   - name: libopensles-standalone
     buildsystem: meson
-    build-options:
-      append-path: /usr/lib/sdk/openjdk17/bin
-      env:
-        JAVA_HOME: /usr/lib/sdk/openjdk17/jvm/openjdk-17
     sources:
       - type: git
         url: https://gitlab.com/android_translation_layer/libopensles-standalone
-        commit: bdb857a4baadbc8c036db85a5da26c5269a751c5
+        commit: c6982620c7dadeb90220b23c575b25eeffda765f
 
   - name: run-dex2oat
     buildsystem: simple
